@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  webui:
+    build: .
+    container_name: image-gen-webui
+    ports:
+      - "8000:8000"
+    environment:
+      - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
+    volumes:
+      - ./outputs:/app/outputs
+      - ./uploads:/app/uploads
+      - ./sessions:/app/sessions
+    restart: unless-stopped
