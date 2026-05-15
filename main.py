@@ -29,6 +29,8 @@ UPLOADS_DIR.mkdir(exist_ok=True)
 
 dashscope.base_http_api_url = "https://dashscope.aliyuncs.com/api/v1"
 
+MAX_IMAGES_PER_REQUEST = 5
+
 def get_file_url(file_path: str) -> str:
     return f"file://{os.path.abspath(file_path)}"
 
@@ -126,15 +128,7 @@ async def get_session(session_id: str):
 @app.get("/api/images")
 async def list_all_images():
     images = []
-    for img_file in OUTPUTS_DIR.glob("*.png"):
-        images.append({
-            "filename": img_file.name,
-            "path": str(img_file),
-            "url": f"/api/images/{img_file.name}",
-            "type": "output",
-            "created_at": datetime.fromtimestamp(img_file.stat().st_mtime).isoformat()
-        })
-    for img_file in UPLOADS_DIR.glob("*"):
+    for img_file in sorted(UPLOADS_DIR.glob("*"), key=lambda x: x.stat().st_mtime, reverse=True):
         if img_file.suffix.lower() in [".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp"]:
             images.append({
                 "filename": img_file.name,
@@ -143,7 +137,19 @@ async def list_all_images():
                 "type": "upload",
                 "created_at": datetime.fromtimestamp(img_file.stat().st_mtime).isoformat()
             })
-    images.sort(key=lambda x: x["created_at"], reverse=True)
+    return JSONResponse({"images": images})
+
+@app.get("/api/outputs")
+async def list_output_images():
+    images = []
+    for img_file in sorted(OUTPUTS_DIR.glob("*.png"), key=lambda x: x.stat().st_mtime, reverse=True):
+        images.append({
+            "filename": img_file.name,
+            "path": str(img_file),
+            "url": f"/api/images/{img_file.name}",
+            "type": "output",
+            "created_at": datetime.fromtimestamp(img_file.stat().st_mtime).isoformat()
+        })
     return JSONResponse({"images": images})
 
 @app.delete("/api/images/{filename}")
@@ -160,20 +166,26 @@ async def delete_image(filename: str):
     return JSONResponse({"success": True})
 
 @app.post("/api/upload")
-async def upload_image(file: UploadFile = File(...)):
+async def upload_image(files: List[UploadFile] = File(...)):
     try:
-        file_id = str(uuid.uuid4())
-        suffix = Path(file.filename).suffix if file.filename else ".png"
-        file_path = UPLOADS_DIR / f"{file_id}{suffix}"
+        uploaded_files = []
+        for file in files:
+            file_id = str(uuid.uuid4())
+            suffix = Path(file.filename).suffix if file.filename else ".png"
+            file_path = UPLOADS_DIR / f"{file_id}{suffix}"
 
-        content = await file.read()
-        with open(file_path, "wb") as f:
-            f.write(content)
+            content = await file.read()
+            with open(file_path, "wb") as f:
+                f.write(content)
+
+            uploaded_files.append({
+                "file_id": file_id,
+                "file_path": str(file_path),
+                "file_url": f"/api/uploads/{file_id}{suffix}"
+            })
 
         return JSONResponse({
-            "file_id": file_id,
-            "file_path": str(file_path),
-            "file_url": f"/api/uploads/{file_id}{suffix}"
+            "uploaded_files": uploaded_files
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -200,6 +212,9 @@ async def generate_image(
         selected_list = []
         if selected_images:
             selected_list = [img.strip() for img in selected_images.split(",") if img.strip()]
+
+        if len(selected_list) > MAX_IMAGES_PER_REQUEST:
+            raise HTTPException(status_code=400, detail=f"最多只能选择{MAX_IMAGES_PER_REQUEST}张图片")
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         output_filename = f"output_{session_id}_{timestamp}.png"

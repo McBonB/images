@@ -309,19 +309,122 @@
             font-size: 14px;
         }
 
-        .chat-view {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            height: 100%;
-            overflow: hidden;
-        }
-
         .input-area {
             padding: 16px 24px;
             background: #ffffff;
             border-top: 1px solid #d2d2d7;
             flex-shrink: 0;
+        }
+
+        .image-selection-area {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #d2d2d7;
+        }
+
+        .image-selection-title {
+            font-size: 13px;
+            color: #86868b;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .image-selection-title .count {
+            color: #0071e3;
+            font-weight: 500;
+        }
+
+        .image-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .image-tab {
+            padding: 6px 12px;
+            background: #f5f5f7;
+            border: 1px solid #d2d2d7;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .image-tab.active {
+            background: #0071e3;
+            color: white;
+            border-color: #0071e3;
+        }
+
+        .image-grid {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .image-item {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .image-item:hover {
+            border-color: #0071e3;
+        }
+
+        .image-item.selected {
+            border-color: #0071e3;
+            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.3);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-item .remove-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 18px;
+            height: 18px;
+            background: #ff3b30;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 18px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .image-item:hover .remove-btn {
+            opacity: 1;
+        }
+
+        .clear-selection-btn {
+            padding: 4px 10px;
+            background: #ff3b30;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .clear-selection-btn:hover {
+            background: #d63030;
         }
 
         .upload-section {
@@ -365,117 +468,6 @@
         .upload-btn svg {
             width: 16px;
             height: 16px;
-        }
-
-        .uploaded-image-preview {
-            display: none;
-        }
-
-        .uploaded-image-preview.has-image {
-            display: block;
-        }
-
-        .selected-image-item {
-            position: relative;
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid #0071e3;
-        }
-
-        .selected-image-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .selected-image-item .remove-btn {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 20px;
-            height: 20px;
-            background: #ff3b30;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 12px;
-            line-height: 20px;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .selected-image-item:hover .remove-btn {
-            opacity: 1;
-        }
-
-        .history-images-area {
-            margin-bottom: 12px;
-            display: none;
-        }
-
-        .history-images-area.has-images {
-            display: block;
-        }
-
-        .history-images-title {
-            font-size: 13px;
-            color: #86868b;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .history-images-title .hint {
-            font-size: 12px;
-            color: #a6a6a6;
-        }
-
-        .history-images-grid {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .history-image-item {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .history-image-item:hover {
-            border-color: #0071e3;
-        }
-
-        .history-image-item.selected {
-            border-color: #0071e3;
-            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.3);
-        }
-
-        .history-image-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .history-image-item .index {
-            position: absolute;
-            bottom: 4px;
-            left: 4px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 4px;
         }
 
         .input-row {
@@ -619,18 +611,12 @@
             display: none;
         }
 
-        .clear-selection-btn {
-            padding: 4px 10px;
-            background: #ff3b30;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        .clear-selection-btn:hover {
-            background: #d63030;
+        .chat-view {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            height: 100%;
+            overflow: hidden;
         }
 
         .gallery-view {
@@ -662,9 +648,20 @@
             color: #86868b;
         }
 
+        .gallery-section {
+            margin-bottom: 24px;
+        }
+
+        .gallery-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1d1d1f;
+        }
+
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 16px;
         }
 
@@ -684,38 +681,30 @@
 
         .gallery-item img {
             width: 100%;
-            height: 200px;
+            height: 160px;
             object-fit: cover;
             cursor: pointer;
         }
 
         .gallery-item-info {
-            padding: 12px;
+            padding: 10px;
         }
 
         .gallery-item-name {
-            font-size: 13px;
+            font-size: 12px;
             color: #1d1d1f;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .gallery-item-meta {
-            font-size: 12px;
-            color: #86868b;
-            margin-top: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
         .gallery-item-type {
             display: inline-block;
-            padding: 2px 8px;
+            padding: 2px 6px;
             background: #f5f5f7;
             border-radius: 4px;
-            font-size: 11px;
+            font-size: 10px;
+            margin-top: 4px;
         }
 
         .gallery-item-type.upload {
@@ -743,8 +732,8 @@
         }
 
         .gallery-action-btn {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             background: rgba(0, 0, 0, 0.7);
             color: white;
             border: none;
@@ -762,6 +751,11 @@
 
         .gallery-action-btn.delete:hover {
             background: #ff3b30;
+        }
+
+        .gallery-action-btn svg {
+            width: 14px;
+            height: 14px;
         }
 
         .empty-gallery {
@@ -820,9 +814,9 @@
 
             <div class="input-area" id="inputArea" style="display: none;">
                 <div class="upload-section">
-                    <div class="upload-section-title">上传参考图片（可选，首轮使用）</div>
+                    <div class="upload-section-title">上传参考图片（最多5张）</div>
                     <div class="upload-area">
-                        <input type="file" id="uploadInput" class="upload-input" accept="image/*" onchange="handleUpload(event)">
+                        <input type="file" id="uploadInput" class="upload-input" accept="image/*" multiple onchange="handleUpload(event)">
                         <button class="upload-btn" onclick="document.getElementById('uploadInput').click()">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
@@ -831,22 +825,23 @@
                             </svg>
                             上传图片
                         </button>
-                        <div id="uploadedImagePreview" class="uploaded-image-preview">
-                            <div class="selected-image-item">
-                                <img id="uploadedImage" src="" alt="已上传">
-                                <button class="remove-btn" onclick="removeUploadedImage()">×</button>
-                            </div>
-                        </div>
+                        <div id="uploadedPreview" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
                     </div>
                 </div>
 
-                <div class="history-images-area" id="historyImagesArea">
-                    <div class="history-images-title">
-                        选择参考图片（最多5张，支持多轮编辑）
-                        <span class="hint">（选中的图片将作为编辑参考）</span>
-                        <button class="clear-selection-btn" onclick="clearImageSelection()">清除选择</button>
+                <div class="image-selection-area">
+                    <div class="image-selection-title">
+                        <span>选择参考图片（上传/历史，最多5张）</span>
+                        <span class="count">已选: <span id="selectedCount">0</span>/5</span>
                     </div>
-                    <div class="history-images-grid" id="historyImagesGrid"></div>
+                    <div class="image-tabs">
+                        <button class="image-tab active" data-tab="uploads" onclick="switchImageTab('uploads')">上传图片</button>
+                        <button class="image-tab" data-tab="history" onclick="switchImageTab('history')">历史图片</button>
+                    </div>
+                    <div class="image-grid" id="imageGrid"></div>
+                    <div style="margin-top: 8px;">
+                        <button class="clear-selection-btn" onclick="clearSelection()">清除选择</button>
+                    </div>
                 </div>
 
                 <div class="input-row">
@@ -871,9 +866,15 @@
         <div class="gallery-view" id="galleryView">
             <div class="gallery-header">
                 <div class="gallery-title">图库</div>
-                <div class="gallery-count" id="galleryCount"></div>
             </div>
-            <div class="gallery-grid" id="galleryGrid"></div>
+            <div class="gallery-section">
+                <div class="gallery-section-title">上传图片</div>
+                <div class="gallery-grid" id="galleryUploads"></div>
+            </div>
+            <div class="gallery-section">
+                <div class="gallery-section-title">生成的图片</div>
+                <div class="gallery-grid" id="galleryOutputs"></div>
+            </div>
         </div>
     </div>
 
@@ -891,11 +892,11 @@
 
     <script>
         let currentSessionId = null;
-        let uploadedImageUrl = null;
-        let selectedHistoryImages = [];
-        let allGeneratedImages = [];
+        let selectedImages = [];
+        let allUploadedImages = [];
+        let allHistoryImages = [];
         let sessions = [];
-        let currentView = 'chat';
+        let currentImageTab = 'uploads';
 
         async function loadSessions() {
             try {
@@ -945,9 +946,7 @@
                 const response = await fetch('/api/sessions', { method: 'POST' });
                 const data = await response.json();
                 currentSessionId = data.session_id;
-                uploadedImageUrl = null;
-                selectedHistoryImages = [];
-                allGeneratedImages = [];
+                selectedImages = [];
                 await loadSessions();
                 await selectSession(currentSessionId);
                 showChatView();
@@ -964,21 +963,17 @@
                 if (response.ok) {
                     if (currentSessionId === sessionId) {
                         currentSessionId = null;
-                        uploadedImageUrl = null;
-                        selectedHistoryImages = [];
-                        allGeneratedImages = [];
+                        selectedImages = [];
 
                         const emptyState = document.getElementById('emptyState');
                         const inputArea = document.getElementById('inputArea');
                         const chatArea = document.getElementById('chatArea');
                         const chatTitle = document.getElementById('chatTitle');
-                        const historyImagesArea = document.getElementById('historyImagesArea');
 
                         if (emptyState) emptyState.style.display = 'flex';
                         if (inputArea) inputArea.style.display = 'none';
                         if (chatArea) chatArea.innerHTML = '';
                         if (chatTitle) chatTitle.textContent = '选择或创建对话';
-                        if (historyImagesArea) historyImagesArea.classList.remove('has-images');
                     }
                     await loadSessions();
                 }
@@ -989,9 +984,7 @@
 
         async function selectSession(sessionId) {
             currentSessionId = sessionId;
-            uploadedImageUrl = null;
-            selectedHistoryImages = [];
-            allGeneratedImages = [];
+            selectedImages = [];
 
             const emptyState = document.getElementById('emptyState');
             const inputArea = document.getElementById('inputArea');
@@ -1007,15 +1000,110 @@
                 const response = await fetch(`/api/sessions/${sessionId}`);
                 const session = await response.json();
 
-                allGeneratedImages = session.all_images || [];
-
                 renderSessions();
                 renderMessages(session.messages || []);
-                renderHistoryImages();
-                updateUploadPreview();
+                await loadAllImages();
+                updateSelectedCount();
             } catch (error) {
                 console.error('Failed to load session:', error);
             }
+        }
+
+        async function loadAllImages() {
+            try {
+                const [uploadsRes, historyRes] = await Promise.all([
+                    fetch('/api/images'),
+                    fetch('/api/outputs')
+                ]);
+                const uploadsData = await uploadsRes.json();
+                const historyData = await historyRes.json();
+
+                allUploadedImages = uploadsData.images || [];
+                allHistoryImages = historyData.images || [];
+
+                renderImageGrid();
+            } catch (error) {
+                console.error('Failed to load images:', error);
+            }
+        }
+
+        function switchImageTab(tab) {
+            currentImageTab = tab;
+            document.querySelectorAll('.image-tab').forEach(t => {
+                t.classList.toggle('active', t.dataset.tab === tab);
+            });
+            renderImageGrid();
+        }
+
+        function renderImageGrid() {
+            const grid = document.getElementById('imageGrid');
+            const images = currentImageTab === 'uploads' ? allUploadedImages : allHistoryImages;
+
+            if (images.length === 0) {
+                grid.innerHTML = `<div style="color: #86868b; font-size: 13px; padding: 10px;">暂无图片</div>`;
+                return;
+            }
+
+            grid.innerHTML = images.map(img => {
+                const isSelected = selectedImages.includes(img.url);
+                return `
+                    <div class="image-item ${isSelected ? 'selected' : ''}" onclick="toggleImageSelection('${img.url}')">
+                        <img src="${img.url}" alt="${img.filename}">
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleImageSelection(imageUrl) {
+            const index = selectedImages.indexOf(imageUrl);
+            if (index === -1) {
+                if (selectedImages.length >= 5) {
+                    alert('最多只能选择5张图片');
+                    return;
+                }
+                selectedImages.push(imageUrl);
+            } else {
+                selectedImages.splice(index, 1);
+            }
+            renderImageGrid();
+            updateSelectedCount();
+        }
+
+        function clearSelection() {
+            selectedImages = [];
+            renderImageGrid();
+            updateSelectedCount();
+        }
+
+        function updateSelectedCount() {
+            document.getElementById('selectedCount').textContent = selectedImages.length;
+        }
+
+        async function handleUpload(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+
+            try {
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.uploaded_files) {
+                    await loadAllImages();
+                    alert(`成功上传 ${data.uploaded_files.length} 张图片`);
+                }
+            } catch (error) {
+                console.error('Failed to upload:', error);
+            }
+
+            event.target.value = '';
         }
 
         function renderMessages(messages) {
@@ -1075,88 +1163,6 @@
             return div.innerHTML;
         }
 
-        function renderHistoryImages() {
-            const area = document.getElementById('historyImagesArea');
-            const grid = document.getElementById('historyImagesGrid');
-
-            if (allGeneratedImages.length === 0) {
-                area.classList.remove('has-images');
-                return;
-            }
-
-            area.classList.add('has-images');
-
-            grid.innerHTML = allGeneratedImages.map((img, index) => {
-                const isSelected = selectedHistoryImages.includes(img);
-                return `
-                    <div class="history-image-item ${isSelected ? 'selected' : ''}" onclick="toggleImageSelection('${img}')">
-                        <img src="${img}" alt="历史图片${index + 1}">
-                        <span class="index">${index + 1}</span>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function toggleImageSelection(imageUrl) {
-            const index = selectedHistoryImages.indexOf(imageUrl);
-            if (index === -1) {
-                if (selectedHistoryImages.length >= 5) {
-                    alert('最多只能选择5张图片作为参考');
-                    return;
-                }
-                selectedHistoryImages.push(imageUrl);
-            } else {
-                selectedHistoryImages.splice(index, 1);
-            }
-            renderHistoryImages();
-        }
-
-        function clearImageSelection() {
-            selectedHistoryImages = [];
-            renderHistoryImages();
-        }
-
-        async function handleUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const formData = new FormData();
-            formData.append('file', file);
-
-            try {
-                const response = await fetch('/api/upload', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                uploadedImageUrl = data.file_path;
-                updateUploadPreview();
-            } catch (error) {
-                console.error('Failed to upload:', error);
-            }
-
-            event.target.value = '';
-        }
-
-        function updateUploadPreview() {
-            const preview = document.getElementById('uploadedImagePreview');
-            const img = document.getElementById('uploadedImage');
-
-            if (uploadedImageUrl) {
-                preview.classList.add('has-image');
-                img.src = uploadedImageUrl.startsWith('/api/')
-                    ? uploadedImageUrl
-                    : `/api/uploads/${uploadedImageUrl.split('/').pop()}`;
-            } else {
-                preview.classList.remove('has-image');
-            }
-        }
-
-        function removeUploadedImage() {
-            uploadedImageUrl = null;
-            updateUploadPreview();
-        }
-
         async function generateImage() {
             const prompt = document.getElementById('promptInput').value.trim();
             if (!prompt) {
@@ -1169,14 +1175,6 @@
             }
 
             const imageSize = document.getElementById('imageSize').value;
-
-            let selectedImages = [];
-
-            if (uploadedImageUrl) {
-                selectedImages.push(uploadedImageUrl);
-            }
-
-            selectedImages = selectedImages.concat(selectedHistoryImages);
 
             document.getElementById('loadingOverlay').classList.add('active');
             document.getElementById('generateBtn').disabled = true;
@@ -1203,11 +1201,10 @@
                 }
 
                 if (data.success) {
-                    allGeneratedImages.push(data.image);
-                    await selectSession(currentSessionId);
+                    selectedImages = [];
+                    updateSelectedCount();
                     document.getElementById('promptInput').value = '';
-                    uploadedImageUrl = null;
-                    updateUploadPreview();
+                    await selectSession(currentSessionId);
                     await loadSessions();
                 }
             } catch (error) {
@@ -1220,7 +1217,6 @@
         }
 
         function showChatView() {
-            currentView = 'chat';
             document.getElementById('chatView').style.display = '';
             document.getElementById('galleryView').classList.remove('active');
             document.getElementById('chatNavBtn').classList.add('active');
@@ -1228,7 +1224,6 @@
         }
 
         async function showGalleryView() {
-            currentView = 'gallery';
             document.getElementById('chatView').style.display = 'none';
             document.getElementById('galleryView').classList.add('active');
             document.getElementById('chatNavBtn').classList.remove('active');
@@ -1238,52 +1233,46 @@
 
         async function loadGallery() {
             try {
-                const response = await fetch('/api/images');
-                const data = await response.json();
-                renderGallery(data.images || []);
+                const [uploadsRes, outputsRes] = await Promise.all([
+                    fetch('/api/images'),
+                    fetch('/api/outputs')
+                ]);
+                const uploadsData = await uploadsRes.json();
+                const outputsData = await outputsRes.json();
+
+                renderGallerySection('galleryUploads', uploadsData.images || [], 'upload');
+                renderGallerySection('galleryOutputs', outputsData.images || [], 'output');
             } catch (error) {
                 console.error('Failed to load gallery:', error);
             }
         }
 
-        function renderGallery(images) {
-            const grid = document.getElementById('galleryGrid');
-            const count = document.getElementById('galleryCount');
-
-            count.textContent = `共 ${images.length} 张图片`;
+        function renderGallerySection(elementId, images, type) {
+            const container = document.getElementById(elementId);
 
             if (images.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-gallery">
-                        <svg class="empty-gallery-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="3" y="3" width="18" height="18" rx="2"/>
-                            <circle cx="8.5" cy="8.5" r="1.5"/>
-                            <path d="M21 15l-5-5L5 21"/>
-                        </svg>
-                        <div>暂无图片</div>
-                    </div>
-                `;
+                container.innerHTML = `<div style="color: #86868b; font-size: 13px; padding: 20px;">暂无图片</div>`;
                 return;
             }
 
-            grid.innerHTML = images.map(img => `
-                <div class="gallery-item" data-filename="${img.filename}">
+            container.innerHTML = images.map(img => `
+                <div class="gallery-item">
                     <div class="gallery-item-actions">
                         <button class="gallery-action-btn" onclick="openModal('${img.url}')" title="预览">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                                 <circle cx="12" cy="12" r="3"/>
                             </svg>
                         </button>
                         <button class="gallery-action-btn" onclick="downloadImage('${img.url}')" title="下载">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
                                 <polyline points="7,10 12,15 17,10"/>
                                 <line x1="12" y1="15" x2="12" y2="3"/>
                             </svg>
                         </button>
                         <button class="gallery-action-btn delete" onclick="deleteImage('${img.filename}')" title="删除">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="3,6 5,6 21,6"/>
                                 <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
                             </svg>
@@ -1292,10 +1281,7 @@
                     <img src="${img.url}" alt="${img.filename}" onclick="openModal('${img.url}')">
                     <div class="gallery-item-info">
                         <div class="gallery-item-name">${img.filename}</div>
-                        <div class="gallery-item-meta">
-                            <span class="gallery-item-type ${img.type}">${img.type === 'upload' ? '上传' : '生成'}</span>
-                            <span>${new Date(img.created_at).toLocaleDateString()}</span>
-                        </div>
+                        <span class="gallery-item-type ${type}">${type === 'upload' ? '上传' : '生成'}</span>
                     </div>
                 </div>
             `).join('');
