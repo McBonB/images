@@ -7,6 +7,8 @@ services:
     environment:
       - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
     volumes:
+      - ./main.py:/app/main.py
+      - ./static:/app/static
       - ./outputs:/app/outputs
       - ./uploads:/app/uploads
       - ./sessions:/app/sessions
