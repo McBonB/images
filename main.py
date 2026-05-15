@@ -29,7 +29,7 @@ UPLOADS_DIR.mkdir(exist_ok=True)
 
 dashscope.base_http_api_url = "https://dashscope.aliyuncs.com/api/v1"
 
-MAX_IMAGES_PER_REQUEST = 5
+MAX_IMAGES_PER_REQUEST = 8
 
 def get_file_url(file_path: str) -> str:
     return f"file://{os.path.abspath(file_path)}"
